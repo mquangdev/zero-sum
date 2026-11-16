@@ -46,6 +46,7 @@ Follow the layout that `create-next-app` generated (check whether `src/` exists)
 ## Conventions
 
 - Mobile-first, mobile only: design for ~390px width; touch targets at least 44px; no hover-only interactions
+- Support light and dark mode (follow `prefers-color-scheme`, with a manual toggle); use Tailwind `dark:` variants or CSS variables, and keep the positive/negative balance colors readable in both modes
 - Money is an integer number of VND (never floats); format with `Intl.NumberFormat("vi-VN")`
 - All money logic is pure functions in `lib/settlement.ts` with unit tests; components never compute balances inline
 - Balances are always derived from rounds, never stored. Each round stores a snapshot of `unitPrice`, so changing the price later does not rewrite history
@@ -72,6 +73,7 @@ Before saying a task is finished:
 
 1. `npm run lint`, `npm run typecheck`, `npm test` and `npm run build` all pass (CI runs the same)
 2. The screen works at mobile width (390px) and does not break on desktop
+   and looks right in both light and dark mode
 3. No console errors or hydration warnings
 4. Reloading the page keeps the data (persistence works)
 5. Changes are committed on the feature branch with a clear message

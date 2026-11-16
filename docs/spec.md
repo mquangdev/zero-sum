@@ -54,7 +54,7 @@ Từ số dư cuối của mỗi người, đưa ra danh sách "ai chuyển cho 
 
 ### 5.2 Tạo phiên
 - Tên phiên (mặc định theo ngày, ví dụ "Bi-a 16/11")
-- Giá mỗi đơn vị (VND) và tên đơn vị ("bi", "lá"...), có vài lựa chọn nhanh
+- Giá mỗi đơn vị (VND) và đơn vị tính, chỉ chọn "bi" hoặc "lá"
 - Thêm người chơi (tối thiểu 2), thêm/xoá nhanh bằng ô nhập + Enter
 
 ### 5.3 Chi tiết phiên `/session/[id]`
@@ -81,7 +81,8 @@ Từ số dư cuối của mỗi người, đưa ra danh sách "ai chuyển cho 
 - Xuất JSON toàn bộ dữ liệu, nhập JSON để khôi phục (có xác nhận trước khi ghi đè)
 
 ### 5.7 Thành phần dùng chung
-- Giao diện sáng, chữ lớn, vùng chạm tối thiểu 44px
+- Hỗ trợ chế độ sáng và tối: mặc định theo hệ thống (`prefers-color-scheme`), có nút chuyển tay, lưu lựa chọn qua `lib/storage.ts`, áp dụng trước khi render để không bị nháy sáng khi tải trang
+- Chữ lớn, vùng chạm tối thiểu 44px
 - Trang 404 tiếng Việt, báo "Không tìm thấy phiên" khi id không tồn tại
 - Mọi chuỗi giao diện bằng tiếng Việt
 
@@ -112,7 +113,7 @@ interface Round {
 interface Session {
   id: string;
   name: string;
-  unitLabel: string;     // "bi", "lá"
+  unitLabel: "bi" | "lá";
   unitPrice: number;     // giá hiện hành, VND, số nguyên > 0
   players: Player[];
   rounds: Round[];
@@ -145,7 +146,7 @@ Hàm thuần trong `lib/settlement.ts` (đều có unit test):
 ## 8. Phi chức năng
 
 - Tải nhanh, không phụ thuộc mạng sau lần tải đầu; PWA/cài lên màn hình chính là việc làm sau
-- Truy cập cơ bản: nhãn cho nút icon, tương phản đủ, không dùng màu là dấu hiệu duy nhất (thêm dấu `+`/`-`)
+- Truy cập cơ bản: nhãn cho nút icon, tương phản đủ ở cả chế độ sáng và tối, không dùng màu là dấu hiệu duy nhất (thêm dấu `+`/`-`)
 - Không cookie, không tracking, không gửi dữ liệu ra ngoài
 
 ## 9. Test case nghiệp vụ
@@ -166,10 +167,10 @@ Hàm thuần trong `lib/settlement.ts` (đều có unit test):
 4. Danh sách phiên và tạo phiên
 5. Chi tiết phiên và nhập/sửa/xoá ván
 6. Tổng kết, sao chép kết quả, kết thúc phiên
-7. Cài đặt phiên, xuất/nhập JSON, 404, polish mobile
+7. Cài đặt phiên, xuất/nhập JSON, 404, chế độ sáng/tối, polish mobile
 
-## 11. Câu hỏi mở (cần chủ dự án quyết)
+## 11. Quyết định đã chốt
 
-- Có cần luật phức tạp hơn "thắng ăn tất" (ví dụ nhất/nhì/ba, hệ số nhân, thưởng) không? MVP chỉ hỗ trợ một luật.
-- Tên phiên mặc định và danh sách đơn vị gợi ý ("bi", "lá") có cần thêm không?
-- Có cần chế độ tối (dark mode) không?
+- **Luật chơi:** MVP chỉ hỗ trợ đúng một luật là "thắng ăn tất". Không làm nhất/nhì/ba, hệ số nhân hay thưởng.
+- **Đơn vị:** chỉ có hai lựa chọn "bi" và "lá", không thêm đơn vị khác.
+- **Giao diện:** hỗ trợ cả chế độ sáng và tối (xem mục 5.7).
