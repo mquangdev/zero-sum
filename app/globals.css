@@ -1,0 +1,49 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --bg: #f4f5f7;
+  --surface: #ffffff;
+  --fg: #14171c;
+  --muted: #5b6472;
+  --border: #dde1e7;
+  --primary: #0f766e;
+  --primary-fg: #ffffff;
+  --pos: #15803d;
+  --neg: #b91c1c;
+  color-scheme: light;
+}
+
+.dark {
+  --bg: #0e1013;
+  --surface: #181b21;
+  --fg: #eceff4;
+  --muted: #98a2b3;
+  --border: #2a2f38;
+  --primary: #2dd4bf;
+  --primary-fg: #04201c;
+  --pos: #4ade80;
+  --neg: #f87171;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-primary: var(--primary);
+  --color-primary-fg: var(--primary-fg);
+  --color-pos: var(--pos);
+  --color-neg: var(--neg);
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  -webkit-tap-highlight-color: transparent;
+}

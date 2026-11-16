@@ -15,8 +15,6 @@ Next.js (App Router), TypeScript, Tailwind CSS, localStorage, Vitest. Deploy tr�
 
 ## Chạy cục bộ
 
-Sau khi app được scaffold (xem kế hoạch trong spec):
-
 ```bash
 npm install
 npm run dev      # http://localhost:3000
@@ -28,4 +26,4 @@ npm run build
 
 ## Trạng thái
 
-Đang ở giai đoạn spec: repo mới có tài liệu và cấu hình CI, chưa có code app.
+Đã có đủ chức năng MVP theo spec: tạo phiên, người chơi, nhập/sửa/xoá ván, bảng điểm, tổng kết và chuyển khoản tối giản, sao chép kết quả, xuất/nhập JSON, chế độ sáng/tối.

@@ -80,6 +80,9 @@ Từ số dư cuối của mỗi người, đưa ra danh sách "ai chuyển cho 
 - Kết thúc / mở lại phiên, xoá phiên
 - Xuất JSON toàn bộ dữ liệu, nhập JSON để khôi phục (có xác nhận trước khi ghi đè)
 
+### 5.0 Routes
+`/` (danh sách), `/new` (tạo phiên), `/session/[id]` (chi tiết), `/session/[id]/round` (thêm ván), `/session/[id]/round/[roundId]` (sửa/xoá ván), `/session/[id]/summary` (tổng kết), `/session/[id]/settings` (cài đặt). Phiên đã kết thúc là chỉ đọc: muốn thêm/sửa/xoá ván phải mở lại phiên.
+
 ### 5.7 Thành phần dùng chung
 - Hỗ trợ chế độ sáng và tối: mặc định theo hệ thống (`prefers-color-scheme`), có nút chuyển tay, lưu lựa chọn qua `lib/storage.ts`, áp dụng trước khi render để không bị nháy sáng khi tải trang
 - Chữ lớn, vùng chạm tối thiểu 44px

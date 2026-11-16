@@ -30,11 +30,13 @@ CI runs `npm ci`, lint, typecheck, test and build on every pull request and on p
 
 Follow the layout that `create-next-app` generated (check whether `src/` exists). Intended structure:
 
-- `app/`: routes (`/`, `/session/[id]`, `/session/[id]/summary`)
-- `components/`: reusable UI components
+- `app/`: routes (`/`, `/new`, `/session/[id]`, `/session/[id]/round` and `/round/[roundId]`, `/session/[id]/summary`, `/session/[id]/settings`). Dynamic pages are a thin server component wrapping a client view in `<Suspense>` (required by `cacheComponents`)
+- `components/`: UI and screen views (`*View.tsx`), shared primitives in `ui.tsx`
 - `lib/types.ts`: domain types (single source of truth)
 - `lib/settlement.ts`: pure money logic (round amounts, balances, minimal transfers)
-- `lib/storage.ts`: the only module that touches localStorage (versioned, migratable)
+- `lib/sessions.ts`: pure session/round/player mutations with validation (return `Result`)
+- `lib/storage.ts`: the only module that touches localStorage (versioned, migratable, theme preference)
+- `lib/store.ts`: client store (`useSyncExternalStore`) over storage; `lib/theme.ts`: light/dark/system
 - `docs/`: specs and notes
 
 ## Language
