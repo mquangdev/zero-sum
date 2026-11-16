@@ -108,6 +108,14 @@ function Form({ session, existing }: { session: Session; existing?: Round }) {
       return;
     }
     replaceSession(result.value);
+    if (!existing) {
+      // The route may stay mounted (hidden) after navigating away, so clear the
+      // draft to make the next "add round" start from a blank form.
+      setWinnerId("");
+      setRemaining({});
+      setSkipped(new Set());
+      setError("");
+    }
     router.replace(`/session/${session.id}`);
   }
 
