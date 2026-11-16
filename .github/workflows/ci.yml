@@ -1,0 +1,57 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+# Keep only the latest run per branch or PR.
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Docs-only PRs (before the app is scaffolded) have no package.json.
+      - name: Detect Node project
+        id: node
+        run: |
+          if [ -f package.json ]; then echo "present=true" >> "$GITHUB_OUTPUT"; else echo "present=false" >> "$GITHUB_OUTPUT"; echo "No package.json yet, skipping Node checks."; fi
+
+      - name: Set up Node.js
+        if: steps.node.outputs.present == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        if: steps.node.outputs.present == 'true'
+        run: npm ci
+
+      - name: Lint
+        if: steps.node.outputs.present == 'true'
+        run: npm run lint
+
+      # Generates the route types in .next/types first, then runs tsc.
+      - name: Typecheck
+        if: steps.node.outputs.present == 'true'
+        run: npm run typecheck
+
+      # Money and settlement logic live in pure functions covered by unit tests.
+      - name: Test
+        if: steps.node.outputs.present == 'true'
+        run: npm test
+
+      - name: Build
+        if: steps.node.outputs.present == 'true'
+        run: npm run build
