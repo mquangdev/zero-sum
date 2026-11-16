@@ -34,11 +34,11 @@ function Stepper({
 }) {
   const clamp = (v: number) => Math.min(MAX_REMAINING, Math.max(0, v));
   return (
-    <div className="flex items-center gap-1">
+    <div className="flex w-full items-center gap-2">
       <button
         type="button"
         aria-label={`Giảm ${label}`}
-        className={cn(btnSecondary, "size-11 px-0 text-xl")}
+        className={cn(btnSecondary, "size-12 shrink-0 px-0 text-2xl")}
         onClick={() => onChange(clamp(value - 1))}
         disabled={value <= 0}
       >
@@ -46,7 +46,7 @@ function Stepper({
       </button>
       <input
         aria-label={label}
-        className={cn(inputCls, "w-14 px-1 text-center font-bold tabular-nums")}
+        className={cn(inputCls, "min-h-12 min-w-0 flex-1 px-1 text-center text-lg font-bold tabular-nums")}
         inputMode="numeric"
         value={value}
         onChange={(e) => onChange(clamp(Number(e.target.value.replace(/\D/g, "")) || 0))}
@@ -55,7 +55,7 @@ function Stepper({
       <button
         type="button"
         aria-label={`Tăng ${label}`}
-        className={cn(btnSecondary, "size-11 px-0 text-xl")}
+        className={cn(btnSecondary, "size-12 shrink-0 px-0 text-2xl")}
         onClick={() => onChange(clamp(value + 1))}
         disabled={value >= MAX_REMAINING}
       >
@@ -167,16 +167,21 @@ function Form({ session, existing }: { session: Session; existing?: Round }) {
                 .map((p) => {
                   const out = skipped.has(p.id);
                   return (
-                    <li key={p.id} className="py-2">
-                      <div className="flex items-center justify-between gap-2">
-                        <label className="flex min-h-11 min-w-0 items-center gap-2">
+                    <li key={p.id} className="py-3">
+                      <div className="flex flex-col gap-2">
+                        <label className="flex min-h-11 min-w-0 items-center gap-3">
                           <input
                             type="checkbox"
-                            className="size-5 accent-primary"
+                            className="size-5 shrink-0 accent-primary"
                             checked={!out}
                             onChange={() => toggle(p.id)}
                           />
-                          <span className={cn("truncate font-medium", out && "text-muted line-through")}>
+                          <span
+                            className={cn(
+                              "break-words text-base font-semibold",
+                              out && "text-muted line-through",
+                            )}
+                          >
                             {p.name}
                           </span>
                         </label>
