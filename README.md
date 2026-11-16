@@ -24,6 +24,18 @@ npm test
 npm run build
 ```
 
+## CI/CD
+
+- **CI**: GitHub Actions (`.github/workflows/ci.yml`) chạy `npm ci`, lint, typecheck, test và build cho mỗi pull request và mỗi lần push lên `main`.
+- **CD**: Vercel tự deploy qua tích hợp Git, không cần workflow, token hay `vercel.json`. Nhánh `main` lên production, mỗi PR có một preview deploy.
+
+Kết nối Vercel (làm một lần, bằng tay):
+
+1. Vào vercel.com, Add New Project, import repo `mquangdev/zero-sum`.
+2. Giữ nguyên preset Next.js và các cấu hình mặc định; không cần biến môi trường.
+3. Production Branch là `main`; preview cho pull request được bật sẵn.
+4. (Tuỳ chọn) Trong GitHub, Settings > Branches, yêu cầu check `CI / check` xanh trước khi merge vào `main`.
+
 ## Trạng thái
 
 Đã có đủ chức năng MVP theo spec: tạo phiên, người chơi, nhập/sửa/xoá ván, bảng điểm, tổng kết và chuyển khoản tối giản, sao chép kết quả, xuất/nhập JSON, chế độ sáng/tối.

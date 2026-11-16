@@ -24,7 +24,7 @@ Full requirements live in `docs/spec.md`. Read it before starting any feature.
 - `npm test`: unit tests (Vitest)
 - `npm run build`: production build
 
-CI runs `npm ci`, lint, typecheck, test and build on every pull request and on pushes to `main`. A PR should be green before it is merged. (Until the app is scaffolded and `package.json` exists, CI skips the Node steps.)
+CI runs `npm ci`, lint, typecheck, test and build on every pull request and on pushes to `main`. A PR should be green before it is merged.
 
 ## Project layout
 
